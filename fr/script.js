@@ -1439,6 +1439,28 @@ class ScrollRevealManager {
 }
 
 
+// Mouse scroll handler
+class MouseScroll {
+  constructor() {
+    this.mouseElement = safeQuerySelector('.home-hero__mouse-scroll-cont');
+    if (this.mouseElement) {
+      this.init();
+    }
+  }
+
+  init() {
+    this.mouseElement.addEventListener('click', () => {
+      const aboutSection = document.getElementById('about');
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+    
+    // Ajouter un style cursor pointer pour indiquer que c'est cliquable
+    this.mouseElement.style.cursor = 'pointer';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   try {
     // Initialiser le copyright en premier
@@ -1488,6 +1510,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Scroll Reveal
     if (safeQuerySelectorAll('.scroll-reveal').length > 0) {
       new ScrollRevealManager();
+    }
+    
+    // Initialize Mouse Scroll
+    if (safeQuerySelector('.home-hero__mouse-scroll-cont')) {
+      new MouseScroll();
     }
   } catch (error) {
     console.error('Error initializing components:', error);
